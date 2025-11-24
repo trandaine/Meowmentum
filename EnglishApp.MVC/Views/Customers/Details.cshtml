@@ -1,0 +1,148 @@
+﻿@model EnglishApp.BusinessLogic.DTOs.Authentications.CustomerDTO
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="content-body">
+    <div id="user-profile">
+        <div class="row">
+            <div class="col-12">
+                <div class="card profile-with-cover">
+                    <div class="card-img-top img-fluid bg-cover height-300 user-profile-cover-image">
+
+                        <img src="/media/default/aerial-view-residence-bukovinian-dalmatian-metropolitans-chernivtsi-national-university-chernivtsi-touristic-destination-western-ukraine_231208-41.jpg" alt="Image Backgound">
+
+                    </div>
+                    <div class="media profil-cover-details w-100">
+                        <div class="media-left pl-2 pt-2">
+                            <a class="profile-image">
+                                <img src="@Url.Content(Model.FilePath)" class="rounded-circle img-border height-100" alt="Card image">
+                            </a>
+                        </div>
+                        <div class="media-body pt-3 px-2">
+                            <div class="row">
+                                <div class="col">
+                                    <h3 class="card-title">@Model.Name</h3>
+                                    <h5 class="card-title">@Model.Email - @Model.DateOfBirth.ToShortDateString()</h5>
+                                </div>
+                                <div class="col text-right">
+                                    <div class="btn-group d-none d-md-block float-right ml-2" role="group" aria-label="Basic example">
+                                        <button type="button" onclick="OpenShoppingCart();" class="btn btn-success"><i class="la la-dashcube"></i> Your Shopping Cart</button>
+                                        <button type="button" onclick="EditProfile(@Model.Id);" class="btn btn-success" data-placement="top" data-toggle="tooltip" title="Edit Profile"><i class="la la-cog"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <nav class="navbar navbar-light navbar-profile align-self-end">
+
+
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <script>
+        function OpenShoppingCart() {
+            window.location.href = '/ShoppingCarts/Details';
+        }
+                function EditProfile(id) {
+            $.ajax({
+                url: "/Customers/Edit",    // Đường dẫn đến API hoặc file server
+                type: "GET",                 // Hoặc "POST", "PUT", "DELETE"
+                data: {                      // Object dữ liệu gửi lên server ở dạng [key: value]
+                    id: id,
+                },
+                // contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                beforeSend: function () {
+                    // Hàm gọi trước khi gửi request: thường hiện trạng thái Loading
+                    console.log("Đang gửi yêu cầu...");
+                },
+                success: function (response) {
+                    // Hàm gọi khi request thành công: Thường cập nhật lại dữ liệu hiển thị
+                    // console.log("Kết quả:", response);
+                    openModal("Edit Profile", response);
+
+                },
+                error: function (xhr, status, error) {
+                    // Khi có lỗi xảy ra: thường hiển thị lỗi trên modal hoặc thông báo lỗi
+                    console.error("Lỗi:", error);
+                    console.log("Chi tiết:", xhr.responseText);
+                },
+                complete: function () {
+                    // Dù thành công hay thất bại đều chạy: Thường dùng để đóng trạng thái Loading, đóng Modal đang mở
+                    console.log("Hoàn tất AJAX request");
+                },
+                timeout: 10000               // Giới hạn thời gian (ms)
+            });
+        }
+
+        // Hàm Ajax gọi lệnh lưu modal edit
+        function saveModalEditProfile() {
+        var $form = $('#divModal form');
+        var formData = new FormData($form[0]); // keep this, do NOT overwrite
+            // serialize() grabs all input values, including hidden fields and the anti-forgery token.
+            $.ajax({
+                url: '@Url.Action("Edit", "Customers")',
+                // url: '/Customers/Edit',
+                type: "POST",
+                data: formData,
+                processData: false, // prevent jQuery from processing data
+                contentType: false, // prevent jQuery from setting content type
+                beforeSend: function () {
+                    console.log("Sending edit request...");
+                },
+                success: function (response) {
+                    // console.log("Result:", response);
+                    // closeModal();
+                    // refreshPage();
+                    if (response.success) {
+                        closeModal();
+                        refreshPage();
+                    } else {
+                        // Replace modal body with returned partial (with errors)
+                        $("#divModalBody").html(response);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error:", error);
+                    console.log("Details:", xhr.responseText);
+                },
+                complete: function () {
+                    console.log("Edit AJAX request complete");
+                },
+                timeout: 10000
+            });
+        }
+
+
+
+    </script>
+}
+
+@section Styles {
+    <style>
+        .user-profile-cover-image {
+            position: relative;
+            width: 100%;
+            height: 300px; /* matches your height-300 class */
+            overflow: hidden;
+        }
+
+            .user-profile-cover-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover; /* scales and crops nicely */
+                object-position: center; /* keeps image centered */
+                display: block;
+            }
+
+    </style>
+}

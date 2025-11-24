@@ -1,0 +1,102 @@
+﻿@model EnglishApp.BusinessLogic.DTOs.CourseDTO
+
+
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="content-header row">
+    <div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
+        <h3 class="content-header-title mb-0 d-inline-block">Course Detail</h3>
+        <div class="row breadcrumbs-top d-inline-block">
+            <div class="breadcrumb-wrapper col-12">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Courses" asp-action="Index">Index</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        Course Detail
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Details of Course: @Html.DisplayFor(model => model.Name)</h4>
+                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                        @* <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                        <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                        <li><a data-action="close"><i class="ft-x"></i></a></li> *@
+                    </ul>
+                </div>
+            </div>
+            <div class="card-content collapse show">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="width:30%">@Html.DisplayNameFor(model => model.Name)</td>
+                                    <td>@Html.DisplayFor(model => model.Name)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Level)</td>
+                                    <td>@Html.DisplayFor(model => model.Level)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Description)</td>
+                                    <td>@Html.DisplayFor(model => model.Description)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.Price)</td>
+                                    <td>@Html.DisplayFor(model => model.Price)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.DateCreated)</td>
+                                    <td>@Html.DisplayFor(model => model.DateCreated)</td>
+                                </tr>
+                                <tr>
+                                    <td>@Html.DisplayNameFor(model => model.DateUpdated)</td>
+                                    <td>@Html.DisplayFor(model => model.DateUpdated)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="button" onclick="openModalEditCourse(@Model.Id);" class="btn btn-primary">
+                    <i class="ft-edit-2"></i> Edit
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="listLessonContainer" class="col-md-12">
+        @await Component.InvokeAsync("LessonList", new { courseId = Model.Id })
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        // You can add custom JavaScript here if needed
+
+        /**
+         * Hàm tải lại danh sách bài học
+         */
+        
+    </script>
+}

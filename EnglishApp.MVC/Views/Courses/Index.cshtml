@@ -1,0 +1,340 @@
+﻿@model IEnumerable<EnglishApp.BusinessLogic.DTOs.CourseDTO>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@* Layout table: html\ltr\vertical-collapsed-menu-template\ex-component-lists.html *@
+@* Layout Index: html\ltr\vertical-collapsed-menu-template\app-todo.html *@
+
+
+<div class="row">
+    <div class="col-md-2">
+        <div class="todo-app-menu">
+            <div class="form-group text-center add-task">
+                <!-- new task button -->
+                <button type="button" onclick="openModalCreateCourse()" class="btn btn-danger btn-glow add-task-btn btn-block my-1">
+                    <i class="ft-plus"></i>
+                    <span>Create New Course</span>
+                </button>
+            </div>
+            <!-- sidebar list start -->
+            <div class="sidebar-menu-list">
+                <div class="list-group">
+                    <a href="#" class="list-group-item border-0 active">
+                        <span class="fonticon-wrap mr-50">
+                            <i class="ft-align-justify"></i>
+                        </span>
+                        <span> All</span>
+                    </a>
+                </div>
+                <label class="filter-label mt-2 mb-1 pt-25">Filters</label>
+                <div class="list-group">
+                    <a href="#" class="list-group-item border-0">
+                        <span class="fonticon-wrap mr-50">
+                            <i class="ft-star"></i>
+                        </span>
+                        <span>Favourites</span>
+                    </a>
+                    <a href="#" class="list-group-item border-0">
+                        <span class="fonticon-wrap mr-50">
+                            <i class="ft-check"></i>
+                        </span>
+                        <span>Done</span>
+                    </a>
+                    <a href="#" class="list-group-item border-0">
+                        <span class="fonticon-wrap mr-50">
+                            <i class="ft-trash-2"></i>
+                        </span>
+                        <span>Deleted</span>
+                    </a>
+                </div>
+                <label class="filter-label mt-2 mb-1 pt-25">Labels</label>
+                <div class="list-group">
+                    <a href="#" class="list-group-item border-0 d-flex align-items-center justify-content-between">
+                        <span>Frontend</span>
+                        <span class="bullet bullet-sm bullet-primary"></span>
+                    </a>
+                    <a href="#" class="list-group-item border-0 d-flex align-items-center justify-content-between">
+                        <span>Backend</span>
+                        <span class="bullet bullet-sm bullet-success"></span>
+                    </a>
+                    <a href="#" class="list-group-item border-0 d-flex align-items-center justify-content-between">
+                        <span>Issue</span>
+                        <span class="bullet bullet-sm bullet-danger"></span>
+                    </a>
+                    <a href="#" class="list-group-item border-0 d-flex align-items-center justify-content-between">
+                        <span>Design</span>
+                        <span class="bullet bullet-sm bullet-warning"></span>
+                    </a>
+                    <a href="#" class="list-group-item border-0 d-flex align-items-center justify-content-between">
+                        <span>Wireframe</span>
+                        <span class="bullet bullet-sm bullet-info"></span>
+                    </a>
+                </div>
+            </div>
+            <!-- sidebar list end -->
+        </div>
+    </div>
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-body">
+                    <div id="editable-list">
+                        <input type="text" class="search form-control round border-primary mb-1" placeholder="Search" />
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <button class="sort btn btn-block btn-outline-warning btn-round mb-2" data-sort="name">
+                                    Sort
+                                    by name
+                                </button>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <button class="sort btn btn-block btn-outline-success btn-round mb-2" data-sort="level">
+                                    Sort
+                                    by level
+                                </button>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-lg text-center">
+                                <thead>
+                                    <tr>
+                                        <th style="width:5%">
+                                            No.
+                                        </th>
+                                        <th data-sort="name" style="width:25%">
+                                            @Html.DisplayNameFor(model => model.Name)
+                                        </th>
+                                        <th data-sort="level" style="width:15%">
+                                            @Html.DisplayNameFor(model => model.Level)
+                                        </th>
+                                        <th style="width:20%">
+                                            @Html.DisplayNameFor(model => model.Price)
+                                        </th>
+                                        <th style="width:25%">
+                                            @Html.DisplayNameFor(model => model.DateCreated)
+                                        </th>
+                                        <th style="width:10%"></th>
+
+
+                                    </tr>
+                                </thead>
+                                <!-- IMPORTANT, class="list" have to be at tbody -->
+                                <tbody class="list">
+                                    @{
+                                        var position = 1;
+
+                                        foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @(position++)
+                                                </td>
+                                                <td class="name">
+                                                    @Html.DisplayFor(modelItem => item.Name)
+                                                </td>
+                                                <td class="level">
+                                                    @Html.DisplayFor(modelItem => item.Level)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Price)
+                                                </td>
+                                                <td>
+                                                    @item.DateCreated.ToShortDateString()
+                                                </td>
+
+                                                <td>
+                                                    <div class="action-buttons">
+                                                        <button type="button" onclick="openModalEditCourse(@item.Id);" class="btn btn-outline-primary">Edit</button>
+                                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info">Details</a>
+                                                        @*<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Remove</a>*@
+                                                        <button type="button" onclick="openModalDeleteCourse(@item.Id);" class="btn btn-outline-danger">Remove</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+
+       
+
+
+        //==== Hàm Ajax gọi lệnh mở lên modal create ===//
+        function openModalCreateCourse(){
+            $.ajax({
+                url: '@Url.Action("Create", "Courses")', // Đường dẫn đến API hoặc file server
+                type: "GET", // Hoặc "POST", "PUT", "DELETE"
+                // dataType: "json", // Kiểu dữ liệu server trả về: json, html, text, xml, script
+                data: { // Object dữ liệu gửi lên server ở dạng [key: value]
+                    // parameter12: "value2"
+                },
+                // contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                beforeSend: function () {
+                    // Hàm gọi trước khi gửi request: thường hiện trạng thái Loading
+                    console.log("Đang gửi yêu cầu...");
+                },
+                success: function (response) {
+                    // Hàm gọi khi request thành công: Thường cập nhật lại dữ liệu hiển thị
+                    // console.log("Kết quả:", response);
+                    // openDeleteModal("Course Delete", response);
+                    openModal("Create a new Course", response);
+                },
+                error: function (xhr, status, error) {
+                    // Khi có lỗi xảy ra: thường hiển thị lỗi trên modal hoặc thông báo lỗi
+                    console.error("Lỗi:", error);
+                    console.log("Chi tiết:", xhr.responseText);
+                },
+                complete: function () {
+                    // Dù thành công hay thất bại đều chạy: Thường dùng để đóng trạng thái Loading, đóng Modal đang mở
+                    console.log("Hoàn tất AJAX request");
+                },
+                timeout: 10000 // Giới hạn thời gian (ms)
+            });
+        }
+
+
+
+        //==== Hàm Ajax gọi lệnh mở lên modal delete ===//
+        function openModalDeleteCourse(idCourse) {
+            $.ajax({
+                url: '@Url.Action("Delete", "Courses")', // Đường dẫn đến API hoặc file server
+                type: "GET", // Hoặc "POST", "PUT", "DELETE"
+                // dataType: "json", // Kiểu dữ liệu server trả về: json, html, text, xml, script
+                data: { // Object dữ liệu gửi lên server ở dạng [key: value]
+                    id: idCourse,
+                    // parameter12: "value2"
+                },
+                // contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                beforeSend: function () {
+                    // Hàm gọi trước khi gửi request: thường hiện trạng thái Loading
+                    console.log("Đang gửi yêu cầu...");
+                },
+                success: function (response) {
+                    // Hàm gọi khi request thành công: Thường cập nhật lại dữ liệu hiển thị
+                    // console.log("Kết quả:", response);
+                    // openDeleteModal("Course Delete", response);
+                    openModal("Course Delete", response);
+                },
+                error: function (xhr, status, error) {
+                    // Khi có lỗi xảy ra: thường hiển thị lỗi trên modal hoặc thông báo lỗi
+                    console.error("Lỗi:", error);
+                    console.log("Chi tiết:", xhr.responseText);
+                },
+                complete: function () {
+                    // Dù thành công hay thất bại đều chạy: Thường dùng để đóng trạng thái Loading, đóng Modal đang mở
+                    console.log("Hoàn tất AJAX request");
+                },
+                timeout: 10000 // Giới hạn thời gian (ms)
+            });
+        }
+
+        //==== Hàm Ajax gọi lệnh xóa course ===//
+        function deleteCourse(idCourse) {
+            let inputToken = document.querySelector("input[name='__RequestVerificationToken']");
+            let token = inputToken ? inputToken.value : "";
+            $.ajax({
+                url: "/Courses/Delete",    // Đường dẫn đến API hoặc file server
+                type: "POST",                 // Hoặc "POST", "PUT", "DELETE"
+                // dataType: "json",            // Kiểu dữ liệu server trả về: json, html, text, xml, script
+                data: {                      // Object dữ liệu gửi lên server ở dạng [key: value]
+                    id: idCourse,
+                    __RequestVerificationToken: token,
+                },
+                beforeSend: function () {
+                    // Hàm gọi trước khi gửi request: thường hiện trạng thái Loading
+                    console.log("Đang gửi yêu cầu...");
+                },
+                success: function (response) {
+                    // Hàm gọi khi request thành công: Thường cập nhật lại dữ liệu hiển thị
+                    // console.log("Kết quả:", response);
+                    console.log("Success!!!");
+                },
+                error: function (xhr, status, error) {
+                    // Khi có lỗi xảy ra: thường hiển thị lỗi trên modal hoặc thông báo lỗi
+                    console.error("Lỗi:", error);
+                    console.log("Chi tiết:", xhr.responseText);
+                },
+                complete: function () {
+                    // Dù thành công hay thất bại đều chạy: Thường dùng để đóng trạng thái Loading, đóng Modal đang mở
+                    console.log("Hoàn tất AJAX request");
+                    refreshPage();
+                },
+                timeout: 10000               // Giới hạn thời gian (ms)
+            });
+        }
+
+        // ==== Hàm Ajax dùng để refresh lại sau khi bấm Delete hoặc Edit ===//
+        // function refreshPage() {
+        //     location.reload();
+        // }
+
+
+        //==== Hàm Ajax gọi lệnh mở lên modal edit ===//
+
+
+       
+
+
+        /**
+         * Hàm Ajax gọi lệnh create tạo và lưu lại khoa hoc moi - backup
+         */
+        function createCourse() {
+            var $form = $('#divModal form'); // Select the form inside the modal
+            var formData = $form.serialize(); // Serialize all form fields
+            // serialize() grabs all input values, including hidden fields and the anti-forgery token.
+            $.ajax({
+                url: '@Url.Action("Create", "Courses")',
+                type: "POST",
+                data: formData,
+                beforeSend: function () {
+                    console.log("Sending create request...");
+                },
+                success: function (response) {
+                    // console.log("Result:", response);
+                    // closeModal();
+                    // refreshPage();
+                    if (response.success) {
+                closeModal();
+                refreshPage();
+            } else {
+                // Replace modal body with returned partial (with errors)
+                $("#divModalBody").html(response);
+            }
+
+
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error:", error);
+                    console.log("Details:", xhr.responseText);
+                },
+                complete: function () {
+                    console.log("Create AJAX request complete");
+                },
+                timeout: 10000
+            });
+        }
+
+
+
+        
+    </script>
+}

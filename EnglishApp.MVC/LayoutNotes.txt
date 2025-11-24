@@ -1,0 +1,35 @@
+﻿Buttons for Layout:
+vertical-collapsed-menu-template/component-buttons-basic.html
+
+Clean Architecture Layers Mapping:
+- Presentation Layer: EnglishApp.MVC
+- Domain Layer: EnglishApp.ApplicationCore
+- Application Layer: EnglishApp.BusinessLogic
+- Infrastructure Layer: EnglishApp.Infrastructure
+
+
+Today Achievements:
+- Make a profile controller to manage user profile (CRUD operations)
+- Implement basic layout for the lesson pages
+- Setup course details page with sample data and lessons init
+
+
+A helper belongs to the layer of the thing it depends on.
+| Helper Type                                               | Depends On                   | Layer                                                         |
+| --------------------------------------------------------- | ---------------------------- | ------------------------------------------------------------- |
+| String helper, math helper, date helper                   | pure .NET, no external stuff | **Domain** or **Application** (preferred: Application/Common) |
+| Validation helper                                         | application rules            | **Application**                                               |
+| File/media helper (e.g., image resize, save file, upload) | file system / cloud services | **Infrastructure**                                            |
+| HTML helper                                               | MVC / API output             | **Presentation (WebAPI)**                                     |
+\
+
+
+Những service cơ bản cần có trong một controllelr:
+- Create
+- Update
+- Delete
+- GetDtoById
+- GetAllDtos
+- Exists
+
+

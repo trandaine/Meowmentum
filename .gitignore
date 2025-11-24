@@ -1,0 +1,83 @@
+##############################################
+# Build artifacts
+##############################################
+bin/
+obj/
+out/
+**/bin/
+**/obj/
+**/out/
+
+##############################################
+# Visual Studio
+##############################################
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+##############################################
+# ASP.NET Core / .NET Core
+##############################################
+*.dbmdl
+*.dbproj.schemaview
+*.pubxml
+*.pubxml.user
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.local.json
+
+# EF Core
+Migrations/obj/
+*.jfm
+*.cache
+
+##############################################
+# Logs
+##############################################
+*.log
+logs/
+log/
+
+##############################################
+# OS / temp files
+##############################################
+*.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+
+##############################################
+# VS Code
+##############################################
+.vscode/
+
+##############################################
+# Node / Frontend (if using Angular/React)
+##############################################
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.eslintcache
+
+##############################################
+# Publish
+##############################################
+publish/
+wwwroot/dist/
+wwwroot/build/
+
+##############################################
+# Others
+##############################################
+*.nupkg
+*.snk
+*.pdb
+*.sqlite
+*.sqite-journal

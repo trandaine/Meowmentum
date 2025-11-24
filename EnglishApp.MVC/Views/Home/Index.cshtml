@@ -1,0 +1,112 @@
+﻿@model EnglishApp.BusinessLogic.DTOs.CourseDTO[]
+
+@{
+    ViewData["Title"] = "All courses";
+}
+
+
+
+@if (Model != null && Model.Length > 0)
+{
+    <div class="row">
+        @foreach (var course in Model)
+        {
+            <div class="col-xl-3 col-md-6 col-sm-12 mt-1">
+                <div class="card w-100">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <img class="card-img img-fluid mb-1" src="@Url.Content(course.FilePath)" alt="@course.Name">
+                            <h4 class="card-title">@course.Name</h4>
+                            <p class="card-course-description-text">@course.Description</p>
+                            <h5 class="text-400 mb-1">$@course.Price</h5>
+                            <div class="card-footer">
+                                <button onclick="viewCourse(@course.Id)" class="btn btn-outline-teal">Details</button>
+                                <button onclick="addToCart(@course.Id)" class="btn btn-outline-teal">Add To Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-12">Không có dữ liệu</div>
+    </div>
+}
+
+@section Styles {
+    <style>
+        .card-course-description-text {
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* show only 3 lines */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-height: 60px; /* reserve space even if short */
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            height: 100%; /* ensures equal height */
+            /* margin-bottom: 20px; /* space between cards */ */
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* pushes buttons to bottom */
+            height: 100%;
+        }
+
+        .card-img {
+            height: 180px; /* adjust as needed */
+            object-fit: cover; /* crop/scale nicely */
+            width: 100%;
+        }
+
+        .card-footer {
+            margin-top: auto; /* pushes footer to bottom */
+            justify-content: center;
+            display: flex;
+            gap: 10px;
+        }
+
+        .card-content {
+            flex: 1; /* makes content stretch evenly */
+        }
+    </style>
+}
+
+
+@section Scripts {
+    <script>
+
+        /**
+         * Hàm thực hiện xem chi tiết khóa học cho customer
+         */
+        function viewCourse(idCourse){
+            $.ajax({
+                url: '/Home/CourseDetails',
+                type: 'GET',
+                data: {
+                    id: idCourse
+                },
+                success: function(response) {
+                    // Chuyển hướng đến trang chi tiết khóa học
+                    // console.log('Thành công:', response);
+                    window.location.href = '/Home/CourseDetails?id=' + idCourse;
+                },
+                error: function(xhr, status, error) {
+                    console.error('Lỗi khi tải chi tiết khóa học:', status, error);
+                }
+            });
+        }
+
+        
+    </script>
+}
+

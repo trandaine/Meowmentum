@@ -1,0 +1,118 @@
+﻿@model IEnumerable<EnglishApp.BusinessLogic.DTOs.ShoppingCarts.CartItemDTO>
+
+@* ltr/support-menu-template/card-statistics.html *@
+
+@* <div class="col-xl-3 col-md-6 col-12"> *@
+
+@{
+    foreach (var item in Model)
+    {
+        <div class="card">
+            <div class="card-content">
+                <div class="align-items-stretch">
+                    <div class="p-2 text-center bg-info rounded-left">
+                        <img class="card-img img-fluid mb-1" src="@Url.Content(item.Image)" alt="@item.Name">
+                    </div>
+                    <div class="p-2 media-body">
+                        <h2>@item.Name</h2>
+                        <h5 class="text-bold-400 mb-0">$@item.Price x 1</h5>
+
+                        <div id="cartFunctionalityContent" style="gap: 10px"
+                             class="d-flex justify-content-between  mt-2">
+
+                            <!-- Quantity Controls -->
+                            <div class="input-group input-group-sm align-items-center flex-nowrap"
+                                 style="max-width: 120px; padding: 0.1rem 0.25rem;">
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-outline-secondary btn-sm"
+                                            type="button"
+                                            onclick="decreaseItem(@item.Id);">
+                                        −
+                                    </button>
+                                </div>
+                                <input type="text"
+                                       class="form-control form-control-sm text-center"
+                                       id="product-input" value="@item.Quantity" readonly>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary btn-sm"
+                                            type="button"
+                                            onclick="increaseItem(@item.Id);">
+                                        +
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center">
+                                <button class="btn btn-danger btn-sm ml-1 bi bi-trash text-white"
+                                        type="button" onclick="removeItemInShoppingCart(@item.Id)">
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+}
+@section Scripts {
+    <script>
+
+        
+        function removeItemInShoppingCart(itemId) {
+            // Implement item removal logic here
+            $.ajax({
+                url: '@Url.Action("Delete", "Cart")', // Đường dẫn đến API hoặc file server
+                type: "POST", // Hoặc "POST", "PUT", "DELETE"
+                // dataType: "json", // Kiểu dữ liệu server trả về: json, html, text, xml, script
+                data: { // Object dữ liệu gửi lên server ở dạng [key: value]
+                    // parameter12: "value2"
+                    id: itemId
+                },
+                // contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                beforeSend: function () {
+                    // Hàm gọi trước khi gửi request: thường hiện trạng thái Loading
+                    console.log("Đang gửi yêu cầu...");
+                },
+
+                success: function (response) {
+                    // Check if current page is ShoppingCarts/Details
+                if (window.location.pathname.toLowerCase().startsWith('/shoppingcarts/details')) {
+                    refreshPage();
+                } else {
+                    reloadComponentView('/ShoppingCarts/GetCartQuantityComponentView', 'divCartCountContainer');
+                    reloadComponentView('/ShoppingCarts/GetShoppingCartItemListComponentView', 'cartItemsDropdown');
+                    // reloadComponentView('/ShoppingCarts/GetShoppingCartItemListComponentView', 'divCartItemsDetails');
+                }
+                    // Hàm gọi khi request thành công: Thường cập nhật lại dữ liệu hiển thị\
+                    // refreshPage()
+                    // console.log("Kết quả:", response);
+                    // reloadComponentView('/ShoppingCarts/GetCartQuantityComponentView', 'divCartCountContainer')
+                    // reloadComponentView('/ShoppingCarts/GetShoppingCartItemListComponentView', 'cartItemsDropdown')
+                    // reloadComponentView('/ShoppingCarts/GetShoppingCartItemListComponentView', 'divCartItemsDetails')
+                    // openDeleteModal("Course Delete", response);
+
+                },
+                error: function (xhr, status, error) {
+                    // Khi có lỗi xảy ra: thường hiển thị lỗi trên modal hoặc thông báo lỗi
+                    console.error("Lỗi:", error);
+                    console.log("Chi tiết:", xhr.responseText);
+                },
+                complete: function () {
+                    // Dù thành công hay thất bại đều chạy: Thường dùng để đóng trạng thái Loading, đóng Modal đang mở
+                    console.log("Hoàn tất AJAX request");
+                },
+                timeout: 10000 // Giới hạn thời gian (ms)
+            });
+        }
+    </script>
+
+}
+
+
+
+@* </div> *@
+
+

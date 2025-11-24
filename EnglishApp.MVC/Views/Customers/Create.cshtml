@@ -1,0 +1,85 @@
+﻿@model EnglishApp.BusinessLogic.DTOs.Authentications.CustomerDTO
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@* Layout: vertical-collapsed-menu-template/form-layout-basic.html *@
+
+<section class="row flexbox-container">
+    <div class="col-12 d-flex align-items-center justify-content-center">
+        <div class="column match-height">
+            <div class="col-md-12">
+                <div class="card">
+                    @* <div class="card-header">
+                        <h4 class="card-title" id="basic-layout-round-controls">Complaint Form</h4>
+                    </div> *@
+                    <div class="card-content collapse show">
+                        <div class="card-body">
+
+                            <div class="card-text">
+                                <p>This is the first time you create the account. Please fill in the form your personal information bellow. Thank you!</p>
+                            </div>
+
+                            <form asp-action="Create" class="form">
+                                <div class="form-body">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <input asp-for="Id" type="hidden" />
+                                    
+                                    <div class="form-group">
+                                        <label asp-for="Name"></label>
+                                        <input type="text" asp-for="Name" class="form-control round" placeholder="Your Name">
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="DateOfBirth"></label>
+                                        <input type="date" asp-for="DateOfBirth" class="form-control round">
+                                        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="Gender"></label>
+                                        <select asp-for="Gender" class="form-control round" data-toggle="tooltip" data-trigger="hover" data-placement="top" data-title="Gender" asp-items="ViewBag.CustomerGenders">
+                                            <option value="none" selected="" disabled="">-- Select Gender --</option>
+                                        </select>
+                                        <span asp-validation-for="Gender" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="Level"></label>
+                                        <select asp-for="Level" class="form-control round" data-toggle="tooltip" data-trigger="hover" data-placement="top" data-title="Gender" asp-items="ViewBag.CustomerLevels">
+                                            <option value="none" selected="" disabled="">-- Select Level --</option>
+                                        </select>
+                                        <span asp-validation-for="Level" class="text-danger"></span>
+                                    </div>
+
+                                    @* <div class="form-group">
+                                        <label>Upload your Avatar (Optional): </label>
+                                        <div>
+                                            <label id="projectinput7" class="file center-block">
+                                                <input type="file" id="file">
+                                                <span class="file-custom"></span>
+                                            </label>
+                                        </div>
+                                    </div> *@
+                                   
+                                </div>
+
+                                <div class="form-actions">
+                                    @* <button type="button" class="btn btn-warning mr-1">
+                                        <i class="ft-x"></i> Cancel
+                                    </button> *@
+                                    <button type="submit" value="Create" class="btn btn-primary">
+                                        <i class="la la-check-square-o"></i> Save
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

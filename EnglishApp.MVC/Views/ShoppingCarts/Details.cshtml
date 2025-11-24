@@ -1,0 +1,57 @@
+﻿@model EnglishApp.ApplicationCore.Entities.ShoppingCart
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="content-header row">
+    <div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
+        <h3 class="content-header-title mb-0 d-inline-block">Your shopping cart</h3>
+        <div class="row breadcrumbs-top d-inline-block">
+            <div class="breadcrumb-wrapper col-12">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        Cart
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-6" id="divCartItemsDetails">
+        @await Component.InvokeAsync("ShoppingCartItemList")
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Your shopping cart</h4>
+            </div>
+            <div class="card-content collapse show">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table mb-0">
+                            <tbody>
+                                <tr>
+                                    <th scope="row" class="border-top-0 text-left">Tong so lương don hàng</th>
+                                    <td class="border-top-0 text-right" style="font-weight: bold;">@Html.DisplayFor(model => model.TotalQuantity)</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="text-left">Total</th>
+                                    <td class="text-right" style="font-weight: bold;">@Html.DisplayFor(model => model.TotalAmount)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-warning w-100 my-2">Proceed to checkout</button>
+            </div>
+        </div>
+
+    </div>
+</div>

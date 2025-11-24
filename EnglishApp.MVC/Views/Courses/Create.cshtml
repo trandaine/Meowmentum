@@ -1,0 +1,155 @@
+﻿@* @model EnglishApp.ApplicationCore.Entities.Course *@
+@model EnglishApp.BusinessLogic.DTOs.CourseDTO
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    bool isCreate = Model == null || Model.Id == 0;
+    string actionString = isCreate ? "Create" : "Edit";
+    string buttonString = isCreate ? "Create" : "Save";
+    // ViewData["Title"] = "Create";
+}
+
+
+
+
+<div class="row match-height">
+    <div class="col-md-12">
+        <div class="card">
+
+            <div class="card-content collapse show">
+                <div class="card-body">
+                    <form asp-action="@actionString" method="post"
+                          asp-antiforgery="true" enctype="multipart/form-data" class="form">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        @if (!isCreate)
+                        {
+                            <input asp-for="Id" type="hidden" />
+                        }
+                        <div class="form-body">
+                            <h4 class="form-section"><i class="ft-user"></i> Course Info</h4>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="Name" class="control-label"></label>
+                                        <input asp-for="Name" placeholder="Course Name" class="form-control" />
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="Description" class="control-label"></label>
+                                        @* <input asp-for="Description" class="form-control" /> *@
+                                        <textarea asp-for="Description" placeholder="Description of Course (Optional)" class="form-control" rows="3"></textarea>
+                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="Level" class="control-label"></label>
+                                        <select asp-for="Level" class="form-control" asp-items="ViewBag.CourseLevels">
+                                            <option value="">-- Select Level --</option>
+                                        </select>
+                                        <span asp-validation-for="Level" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="ImageFile" class="control-label"></label>
+                                        <input asp-for="ImageFile" type="file" placeholder="Image for the course" class="form-control" />
+                                        <span asp-validation-for="ImageFile" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="Price" class="control-label"></label>
+                                        <input asp-for="Price" placeholder="Price of course" class="form-control" />
+                                        <span asp-validation-for="Price" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="form-actions">
+                            @* @if(isCreate)
+                            {
+                                <button onclick="createCourse()" type="button" class="btn btn-primary">
+                                    <i class="la la-check-square-o"></i> @buttonString
+                                </button>
+                            }
+                            else
+                            {
+                                <button onclick="saveModalEditCourse(@Model.Id)" type="button" class="btn btn-primary">
+                                    <i class="la la-check-square-o"></i> @buttonString
+                                </button>
+                            } *@
+
+                            <button onclick="submitCourseForm('@actionString')" type="button" class="btn btn-primary">
+                                <i class="la la-check-square-o"></i> @buttonString
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@* <div class="row match-height">
+    <div class="col-md-12">
+        @await Component.InvokeAsync("CourseList")
+    </div>
+</div> *@
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+
+
+        // Hàm Ajax gọi lệnh lưu modal edit - backup
+        function saveModalEditCourse(idCourse) {
+            var $form = $('#divModal form'); // Select the form inside the modal
+            var formData = $form.serialize(); // Serialize all form fields
+            // serialize() grabs all input values, including hidden fields and the anti-forgery token.
+            $.ajax({
+                //url: '@Url.Action("Edit", "Courses")',
+                url: '/Courses/Edit',
+                type: "POST",
+                data: formData,
+                beforeSend: function () {
+                    console.log("Sending edit request...");
+                },
+                success: function (response) {
+                    // console.log("Result:", response);
+                    // closeModal();
+                    // refreshPage();
+                    if (response.success) {
+                        closeModal();
+                        refreshPage();
+                    } else {
+                        // Replace modal body with returned partial (with errors)
+                        $("#divModalBody").html(response);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error:", error);
+                    console.log("Details:", xhr.responseText);
+                },
+                complete: function () {
+                    console.log("Edit AJAX request complete");
+                },
+                timeout: 10000
+            });
+        }
+
+
+
+
+
+
+    </script>
+}

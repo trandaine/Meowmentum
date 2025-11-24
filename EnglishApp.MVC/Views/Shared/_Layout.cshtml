@@ -1,0 +1,481 @@
+﻿<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+@* Layout: modern-admin/html/ltr/vertical-collapsed-menu-template/index.html *@
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    @*<meta name="description" content="Modern admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities with bitcoin dashboard.">
+    <meta name="keywords" content="admin template, modern admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
+    <meta name="author" content="PIXINVENT"> *@
+    <title>Meowmentum</title>
+    <link rel="apple-touch-icon" href="~/app-assets/images/ico/apple-icon-120.png">
+    <link rel="shortcut icon" type="image/x-icon" href="~/app-assets/images/ico/favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CQuicksand:300,400,500,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="~/app-assets/vendors/css/vendors.min.css">
+
+    <link rel="stylesheet" type="text/css" href="~/app-assets/vendors/css/extensions/nouislider.min.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/vendors/css/ui/prism.min.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/vendors/css/forms/icheck/icheck.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/vendors/css/forms/spinner/jquery.bootstrap-touchspin.css">
+    <!-- END: Vendor CSS-->
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/colors.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/components.css">
+    <!-- END: Theme CSS-->
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/core/menu/menu-types/vertical-menu-modern.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/core/colors/palette-gradient.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/vendors/css/charts/jquery-jvectormap-2.0.3.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/vendors/css/charts/morris.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/fonts/simple-line-icons/style.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/core/colors/palette-gradient.css">
+
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/pages/ecommerce-shop.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/core/colors/palette-noui.css">
+    <link rel="stylesheet" type="text/css" href="~/app-assets/css/plugins/forms/checkboxes-radios.css">
+
+
+    <!-- END: Page CSS-->
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+
+    <link rel="stylesheet" type="text/css" href="~/assets/css/style.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/EnglishApp.MVC.styles.css" asp-append-version="true" />
+    <!-- END: Custom CSS-->
+    @RenderSection("Styles", required: false)
+</head>
+<!-- END: Head-->
+<!-- BEGIN: Body-->
+
+<body class="vertical-layout vertical-menu-modern vertical-collapsed-menu 2-columns   menu-collapsed fixed-navbar" data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
+
+    <!-- BEGIN: Header-->
+    <nav class="header-navbar navbar-expand-lg navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-semi-dark navbar-shadow">
+        <div class="navbar-wrapper">
+            <div class="navbar-header">
+                <ul class="nav navbar-nav flex-row">
+                    <li class="nav-item mobile-menu d-lg-none mr-auto">
+                        <a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#">
+                            <i class="ft-menu font-large-1"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item mr-auto">
+                        <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                            <img class="brand-logo" alt="modern admin logo" src="~/app-assets/images/logo/logo.png">
+                            <h3 class="brand-text">Modern</h3>
+                        </a>
+                    </li>
+                    <li class="nav-item d-none d-lg-block nav-toggle">
+                        <a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse">
+                            <i class="toggle-icon ft-toggle-right font-medium-3 white" data-ticon="ft-toggle-right"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item d-lg-none">
+                        <a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile">
+                            <i class="la la-ellipsis-v"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-container content">
+                <div class="collapse navbar-collapse" id="navbar-mobile">
+                    <ul class="nav navbar-nav mr-auto float-left">
+                            <li class="nav-item d-none d-lg-block">
+                                <a class="nav-link nav-link-expand" href="#">
+                                    <i class="ficon ft-maximize"></i>
+                                </a>
+                            </li>
+                    </ul>
+                    <ul class="nav navbar-nav float-right">
+                        @if (ViewBag.UserName != null)
+                        @* @if (User.Identity.IsAuthenticated) *@
+                        {
+                            <!-- BEGIN: ShoppingCart -->
+                            <li class="dropdown dropdown-notification nav-item" data-bs-auto-close="false">
+                                <a class="nav-link nav-link-label" href="#" data-toggle="dropdown">
+                                    <div id="divCartCountContainer">
+                                        <!-- Display Total Quantity of CartItems-->
+                                        @await Component.InvokeAsync("CartCount")
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right" data-bs-auto-close="false">
+                                    <li class="dropdown-menu-header">
+                                        <h6 class="dropdown-header m-0">
+                                            <span class="grey darken-2">Your Shopping Cart</span>
+                                        </h6><span class="notification-tag badge badge-warning float-right m-0">4 New</span>
+                                    </li>
+                                    <li id="cartItemsDropdown" class="scrollable-container media-list w-100" data-bs-auto-close="false">
+                                        <!-- Display the Items in the ShoppingCart -->
+                                        @await Component.InvokeAsync("ShoppingCartItemList")
+                                    </li>
+                                    <li class="dropdown-menu-footer">
+                                        <div class="m-1">
+                                            <a class="btn btn-dark mb-1 dropdown-item text-white text-center"
+                                               asp-controller="ShoppingCarts" asp-action="Details">Check your cart items</a>
+                                            <a class="btn btn-danger dropdown-item text-white text-center">Proceed to checkout</a>
+                                        </div>
+                                    </li>
+                                    
+                                </ul>
+                            </li>
+                            <!-- END: ShoppingCart -->
+                            <!-- BEGIN: UserPanel -->
+                            <li class="dropdown dropdown-user nav-item">
+                                <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
+                                    <!-- USER DISPLAY NAME & AVATAR -->
+                                    @await Component.InvokeAsync("CustomerName")
+                                    <span class="avatar">
+                                        @* <img src="~/app-assets/images/portrait/small/avatar-s-19.png" alt="avatar"> *@
+                                        <i></i>
+                                    </span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" asp-controller="Customers" asp-action="Details">
+                                        <i class="ft-user"></i> Edit Profile
+                                    </a>
+                                    <a class="dropdown-item" href="app-kanban.html">
+                                        <i class="ft-clipboard"></i> Todo
+                                    </a>
+                                    <a class="dropdown-item" href="user-cards.html">
+                                        <i class="ft-check-square"></i> Task
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    @Html.AntiForgeryToken()
+                                    <!-- LOGOUT BUTTON -->
+                                    <button type="button" onclick="handleLogout()" class="dropdown-item">
+                                        <i class="ft-power"></i> Logout
+                                    </button>
+                                </div>
+                            </li>
+                            <!-- END: UserPanel -->
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <div class="d-flex flex-row justify-content-center align-items-center">
+                                    <a class="btn btn-danger btn-min-width btn-glow mr-1" asp-controller="Authentication" asp-action="Login">Login</a>
+                                    <a class="btn btn-outline-dark btn-min-width" asp-controller="Authentication" asp-action="Register">Register</a>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- END: Header-->
+    <!-- BEGIN: Main Menu-->
+    <div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
+        <div class="main-menu-content">
+            <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+                <li class=" nav-item">
+                    <a asp-controller="Home" asp-action="Index">
+                        <i class="la la-shopping-cart"></i><span class="menu-title" data-i18n="eCommerce">Explore courses</span>
+                    </a>
+                </li>
+                <li class=" nav-item">
+                    <a href="index.html">
+                        <i class="la la-home"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span>
+                    </a>
+                    <ul class="menu-content">
+                        <li>
+                            <a class="menu-item" asp-controller="Courses" asp-action="Index">
+                                <i></i><span data-i18n="eCommerce">Courses</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="menu-item" asp-controller="Lessons" asp-action="Index">
+                                <i></i><span data-i18n="Crypto">Lessons</span>
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a class="menu-item" asp-controller="Excercises" asp-action="Index">
+                                <i></i><span data-i18n="Sales">Excercises</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class=" navigation-header">
+                    <span data-i18n="Admin Panels">Admin Panels</span><i class="la la-ellipsis-h" data-toggle="tooltip" data-placement="right" data-original-title="Admin Panels"></i>
+                </li>
+                <li class=" nav-item">
+                    <a href="../ecommerce-menu-template" target="_blank">
+                        <i class="la la-shopping-cart"></i><span class="menu-title" data-i18n="eCommerce">eCommerce</span>
+                    </a>
+                </li>
+                <li class=" nav-item">
+                    <a href="../travel-menu-template" target="_blank">
+                        <i class="la la-plane"></i><span class="menu-title" data-i18n="Travel &amp; Booking">Travel &amp; Booking</span>
+                    </a>
+                </li>
+                <li class=" nav-item">
+                    <a href="../hospital-menu-template" target="_blank">
+                        <i class="la la-stethoscope"></i><span class="menu-title" data-i18n="Hospital">Hospital</span>
+                    </a>
+                </li>
+                <li class=" nav-item">
+                    <a href="../crypto-menu-template" target="_blank">
+                        <i class="la la-bitcoin"></i><span class="menu-title" data-i18n="Crypto">Crypto</span>
+                    </a>
+                </li>
+                <li class=" nav-item">
+                    <a href="../support-menu-template" target="_blank">
+                        <i class="la la-tag"></i><span class="menu-title" data-i18n="Support Ticket">Support Ticket</span>
+                    </a>
+                </li>
+                <li class=" nav-item">
+                    <a href="../bank-menu-template" target="_blank">
+                        <i class="la la-bank"></i><span class="menu-title" data-i18n="Bank">Bank</span>
+                    </a>
+                </li>
+                <li class=" navigation-header">
+                    <span data-i18n="Apps">Apps</span><i class="la la-ellipsis-h" data-toggle="tooltip" data-placement="right" data-original-title="Apps"></i>
+                </li>
+                <li class=" nav-item">
+                    <a href="app-todo.html">
+                        <i class="la la-check-square"></i><span class="menu-title" data-i18n="ToDo">ToDo</span>
+                    </a>
+                </li>
+                <li class=" nav-item">
+                    <a href="app-contacts.html">
+                        <i class="la la-users"></i><span class="menu-title" data-i18n="Contacts">Contacts</span>
+                    </a>
+                </li>
+                <li class=" nav-item">
+                    <a href="app-email.html">
+                        <i class="la la-envelope"></i><span class="menu-title" data-i18n="Email">Email</span>
+                    </a>
+                </li>
+                <li class=" nav-item">
+                    <a href="app-chat.html">
+                        <i class="la la-comments"></i><span class="menu-title" data-i18n="Chat">Chat</span>
+                    </a>
+                </li>
+                <li class=" nav-item">
+                    <a href="app-kanban.html">
+                        <i class="la la-file-text"></i><span class="menu-title" data-i18n="Kanban">Kanban</span>
+                    </a>
+                </li>
+                <li class=" nav-item">
+                    <a href="#">
+                        <i class="la la-briefcase"></i><span class="menu-title" data-i18n="Project">Project</span>
+                    </a>
+                    <ul class="menu-content">
+                        <li>
+                            <a class="menu-item" href="project-summary.html">
+                                <i></i><span data-i18n="Project Summary">Project Summary</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="project-tasks.html">
+                                <i></i><span data-i18n="Project Task">Project Task</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="project-bugs.html">
+                                <i></i><span data-i18n="Project Bugs">Project Bugs</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item">
+                    <a href="#">
+                        <i class="la la-calendar"></i><span class="menu-title" data-i18n="Calendars">Calendars</span>
+                    </a>
+                    <ul class="menu-content">
+                        <li>
+                            <a class="menu-item" href="#">
+                                <i></i><span data-i18n="Full Calendar">Full Calendar</span>
+                            </a>
+                            <ul class="menu-content">
+                                <li>
+                                    <a class="menu-item" href="full-calender-basic.html">
+                                        <i></i><span data-i18n="Basic">Basic</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="menu-item" href="full-calender-events.html">
+                                        <i></i><span data-i18n="Events">Events</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="menu-item" href="full-calender-advance.html">
+                                        <i></i><span data-i18n="Advance">Advance</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="menu-item" href="full-calender-extra.html">
+                                        <i></i><span data-i18n="Extra">Extra</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="menu-item" href="calendars-clndr.html">
+                                <i></i><span data-i18n="CLNDR">CLNDR</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class=" navigation-header">
+                    <span data-i18n="Support">Support</span><i class="la la-ellipsis-h" data-toggle="tooltip" data-placement="right" data-original-title="Support"></i>
+                </li>
+                <li class=" nav-item">
+                    <a href="https://pixinvent.ticksy.com/" target="_blank">
+                        <i class="la la-support"></i><span class="menu-title" data-i18n="Raise Support">Raise Support</span>
+                    </a>
+                </li>
+                <li class=" nav-item">
+                    <a href="https://pixinvent.com/modern-admin-clean-bootstrap-4-dashboard-html-template/documentation" target="_blank">
+                        <i class="la la-text-height"></i><span class="menu-title" data-i18n="Documentation">Documentation</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- END: Main Menu-->
+    <!-- BEGIN: Content-->
+    <div class="app-content content">
+        <div class="content-overlay"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                @RenderBody()
+
+            </div>
+        </div>
+    </div>
+
+
+    <!--BEGIN: Modal view-->
+    <button type="button" id="buttonModal" class="btn btn-outline-blue blue block btn-lg" data-bs-toggle="modal" hidden data-bs-target="#divModal">
+        Launch Modal
+    </button>
+
+
+    <!-- Dung Chung Modal -->
+    <div class="modal animated fadeInUpBig text-left" id="divModal" tabindex="-1" role="dialog" aria-labelledby="divModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="divModalHeader">Modal header</h4>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="divModalBody" class="modal-body">
+                    <h5>Modal Body</h5>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END: Modal view-->
+    <!-- END: Content-->
+
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
+
+
+    <!-- BEGIN: Footer-->
+    <!-- END: Footer-->
+    <!-- Custom: Begin-->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom: End-->
+    <!-- BEGIN: Vendor JS-->
+
+    <script src="~/app-assets/vendors/js/vendors.min.js"></script>
+
+    <!-- BEGIN Vendor JS-->
+    <!-- BEGIN: Page Vendor JS-->
+    <script src="~/app-assets/vendors/js/charts/chart.min.js"></script>
+    <script src="~/app-assets/vendors/js/charts/raphael-min.js"></script>
+    <script src="~/app-assets/vendors/js/charts/morris.min.js"></script>
+    <script src="~/app-assets/vendors/js/charts/jvector/jquery-jvectormap-2.0.3.min.js"></script>
+    <script src="~/app-assets/vendors/js/charts/jvector/jquery-jvectormap-world-mill.js"></script>
+    <script src="~/app-assets/data/jvector/visitor-data.js"></script>
+    <!-- END: Page Vendor JS-->
+    <!-- BEGIN: Theme JS-->
+    <script src="~/app-assets/js/core/app-menu.js"></script>
+    <script src="~/app-assets/js/core/app.js"></script>
+    <!-- END: Theme JS-->
+    <!-- BEGIN: Page JS-->
+    @* <script src="~/app-assets/js/scripts/pages/dashboard-sales.js"></script> *@
+    <!-- END: Page JS-->
+    <!-- Custom: Begin-->
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+
+    <script>
+        function handleLogout(returnUrl = null){
+            $.ajax({
+                url: '@Url.Action("Logout", "Authentication")', // Đường dẫn đến API hoặc file server
+                type: "POST", // Hoặc "POST", "PUT", "DELETE"
+                // dataType: "json", // Kiểu dữ liệu server trả về: json, html, text, xml, script
+                data: { // Object dữ liệu gửi lên server ở dạng [key: value]
+                    // parameter12: "value2"
+                    returnUrl: returnUrl
+                },
+                headers: {
+                    'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                },
+                // contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                beforeSend: function () {
+                    // Hàm gọi trước khi gửi request: thường hiện trạng thái Loading
+                    console.log("Đang gửi yêu cầu...");
+                },
+                success: function (response) {
+                    // Hàm gọi khi request thành công: Thường cập nhật lại dữ liệu hiển thị
+                    // console.log("Kết quả:", response);
+                    // openDeleteModal("Course Delete", response);
+                    if (returnUrl) {
+                        window.location.href = returnUrl;
+                    } else {
+                        window.location.href = "/Authentication/Login";
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // Khi có lỗi xảy ra: thường hiển thị lỗi trên modal hoặc thông báo lỗi
+                    console.error("Lỗi:", error);
+                    console.log("Chi tiết:", xhr.responseText);
+                },
+                complete: function () {
+                    // Dù thành công hay thất bại đều chạy: Thường dùng để đóng trạng thái Loading, đóng Modal đang mở
+                    console.log("Hoàn tất AJAX request");
+                },
+                timeout: 10000 // Giới hạn thời gian (ms)
+            });
+        }
+
+        
+
+
+
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <!-- Custom: End-->
+
+</body>
+<!-- END: Body-->
+
+</html>
