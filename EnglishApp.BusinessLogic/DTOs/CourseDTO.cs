@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-using static System.Net.Mime.MediaTypeNames;
 
 
 namespace EnglishApp.BusinessLogic.DTOs
@@ -36,3 +35,5 @@ namespace EnglishApp.BusinessLogic.DTOs
         //public List<Course> ExistingCourses { get; set; }
     }
 }
+
+

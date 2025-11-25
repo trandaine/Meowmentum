@@ -20,9 +20,11 @@ namespace EnglishApp.Infrastructure.Helpers
             {
                 if (mediaFile != null && mediaFile.Length > 0)
                 {
-                    // Tạo thư mục lưu ảnh (nếu chưa có)
+                    //// Tạo thư mục lưu ảnh (nếu chưa có)
                     //string uploadsFolder = Path.Combine(_wwwrootPath, "media\\course_images");
-                    string uploadsFolder = Path.Combine(_wwwrootPath, folderUrl);
+                    string solutionRoot = Directory.GetParent(Directory.GetCurrentDirectory()).FullName;
+                    string uploadsFolder = Path.Combine(solutionRoot, "SharedMedia", "media", folderUrl);
+
                     if (!Directory.Exists(uploadsFolder))
                     {
                         Directory.CreateDirectory(uploadsFolder);
@@ -34,7 +36,6 @@ namespace EnglishApp.Infrastructure.Helpers
                     if (fileExtension == null || !AppConstants.FILE_EXTENSION.Contains(fileExtension))
                     {
                         //return BadRequest("Chỉ chấp nhận file ảnh định dạng png, jpeg, jpg, tiff");
-
                         statusCode.SetBadRequest("Chỉ chấp nhận file ảnh định dạng png, jpeg, jpg, tiff");
                         return statusCode;
                     }

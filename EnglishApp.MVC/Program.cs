@@ -6,6 +6,7 @@ using EnglishApp.MVC.Filters;
 using MathNet.Numerics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("EnglishAppIdentityDbContextConnection") ?? throw new InvalidOperationException("Connection string 'EnglishAppIdentityDbContextConnection' not found.");
@@ -191,6 +192,20 @@ if (!app.Environment.IsDevelopment())
     //app.UseExceptionHandler("/Error/Error");
     app.UseHsts();
 }
+
+
+
+app.UseStaticFiles(); // for wwwroot
+
+// Add SharedMedia as an extra static file source
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName, "SharedMedia", "media")),
+    RequestPath = "/media"
+});
+
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
