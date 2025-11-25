@@ -10,6 +10,8 @@ namespace EnglishApp.Infrastructure.Configurations
         {
             builder.Property(courseComment => courseComment.CommentText)
                 .HasMaxLength(1000);
+            builder.Property(courseComment => courseComment.Subject)
+                .HasMaxLength(1000);
         }
     }
 }

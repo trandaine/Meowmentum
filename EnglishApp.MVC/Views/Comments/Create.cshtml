@@ -1,50 +1,51 @@
-﻿@model EnglishApp.ApplicationCore.Entities.CourseComment
+﻿@model EnglishApp.BusinessLogic.DTOs.CourseCommentDTO
 
-@{
-    ViewData["Title"] = "Create";
-}
 
-<h1>Create</h1>
+<h2 class="my-1">
+    Leave Your Review
+</h2>
+<form asp-action="Create" asp-antiforgery="true" class="form">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-<h4>CourseComment</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Rating" class="control-label"></label>
-                <input asp-for="Rating" class="form-control" />
-                <span asp-validation-for="Rating" class="text-danger"></span>
+    <div class="form-body">
+        <label>
+            Ratings
+        </label>
+        <div class="mb-1" id="customer-review">
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <input type="hidden" asp-for="CourseId" />
+                <input type="hidden" asp-for="CustomerId" />
+                <div class="form-group">
+                    <label for="subject">
+                        Subject
+                    </label>
+                    <input class="form-control" asp-for="Subject" id="subject" name="subject" placeholder="Subject" type="text">
+                    <span asp-validation-for="Subject" class="text-danger"></span>
+
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="CommentText" class="control-label"></label>
-                <input asp-for="CommentText" class="form-control" />
-                <span asp-validation-for="CommentText" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsReported" /> @Html.DisplayNameFor(model => model.IsReported)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateCreated" class="control-label"></label>
-                <input asp-for="DateCreated" class="form-control" />
-                <span asp-validation-for="DateCreated" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateUpdated" class="control-label"></label>
-                <input asp-for="DateUpdated" class="form-control" />
-                <span asp-validation-for="DateUpdated" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+        <div class="form-group">
+            <label for="review-desc">
+                Your Review
+            </label>
+            <textarea class="form-control" asp-for="CommentText" id ="review-desc" placeholder="Your Review" rows="5"></textarea>
+            <span asp-validation-for="CommentText" class="text-danger"></span>
+
+        </div>
+        <button class="btn btn-info" type="button" onclick="SubmitComment();">
+            <i class="la la-check-square-o">
+            </i>
+            Submit Review
+        </button>
     </div>
-</div>
+</form>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

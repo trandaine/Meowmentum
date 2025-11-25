@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EnglishApp.BusinessLogic.BaseClasses;
+using EnglishApp.BusinessLogic.DTOs;
 
 namespace EnglishApp.BusinessLogic.Interfaces
 {
-    internal interface ICommentsService
+    public interface ICommentsService
     {
+        Task<CourseCommentDTO[]> GetCourseCommentDtoById(int idCourse);
+        Task<StatusCode> Create(CourseCommentDTO courseCommentDTO);
     }
 }

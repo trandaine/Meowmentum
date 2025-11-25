@@ -1,0 +1,36 @@
+﻿@model EnglishApp.BusinessLogic.DTOs.CourseCommentDTO
+
+
+<h2 class="my-1">
+    Leave Your Review
+</h2>
+<form asp-action="Create" class="form">
+    <div class="form-body">
+        <label>
+            Ratings
+        </label>
+        <div class="mb-1" id="customer-review">
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="subject">
+                        Subject
+                    </label>
+                    <input class="form-control" id="subject" name="subject" placeholder="Subject" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="review-desc">
+                Your Review
+            </label>
+            <textarea class="form-control" id="review-desc" placeholder="Your Review" rows="5"></textarea>
+        </div>
+        <button class="btn btn-info" type="button">
+            <i class="la la-check-square-o">
+            </i>
+            Submit Review
+        </button>
+    </div>
+</form>

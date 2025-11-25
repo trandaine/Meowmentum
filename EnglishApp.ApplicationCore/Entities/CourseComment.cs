@@ -9,6 +9,8 @@
         public int Id { get; set; }
         public int Rating { get; set; }
         public string? CommentText { get; set; } = string.Empty;
+        public string? Subject { get; set; } = string.Empty;
+
         public bool IsReported { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }

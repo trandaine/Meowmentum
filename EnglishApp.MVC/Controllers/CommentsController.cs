@@ -1,4 +1,7 @@
 ﻿using EnglishApp.ApplicationCore.Entities;
+using EnglishApp.ApplicationCore.Enums;
+using EnglishApp.BusinessLogic.DTOs;
+using EnglishApp.BusinessLogic.Interfaces;
 using EnglishApp.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,9 +12,17 @@ namespace EnglishApp.MVC.Controllers
     public class CommentsController : Controller
     {
         private readonly EnglishAppDbContext _context;
+        private readonly ICommentsService _commentsService;
+        private readonly ICustomerService _customerService;
 
-        public CommentsController(EnglishAppDbContext context)
+        public CommentsController(
+            EnglishAppDbContext context, 
+            ICommentsService commentsService,
+            ICustomerService customerService
+            )
         {
+            _commentsService = commentsService;
+            _customerService = customerService;
             _context = context;
         }
 
@@ -38,11 +49,18 @@ namespace EnglishApp.MVC.Controllers
         }
 
         // GET: Comments/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create(int courseId)
         {
-            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Name");
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Email");
-            return View();
+            var userId = _customerService.GetCurrentUserId();
+            var customerId = await _customerService.GetCustomerDtoByUserId(userId);
+            var courseCommentDTO = new CourseCommentDTO
+            {
+                CustomerId = customerId.Id,
+                CourseId = courseId
+            };
+            //return PartialView();
+            return PartialView(courseCommentDTO);
+
         }
 
         // POST: Comments/Create
@@ -50,20 +68,15 @@ namespace EnglishApp.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Rating,CommentText,IsReported,DateCreated,DateUpdated,CourseId,CustomerId")] CourseComment courseComment)
+        public async Task<IActionResult> Create(CourseCommentDTO courseCommentDTO)
         {
-            if (ModelState.IsValid)
+            var courseCommentStatus = await _commentsService.Create(courseCommentDTO);
+            if (courseCommentStatus.Code == StatusCodeEnum.Success)
             {
-                _context.Add(courseComment);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return Json(new { success = true });
             }
-            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "Name", courseComment.CourseId);
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Email", courseComment.CustomerId);
-            return View(courseComment);
+            return PartialView(nameof(Create), courseCommentDTO);
         }
-       
-
 
     }
 }
