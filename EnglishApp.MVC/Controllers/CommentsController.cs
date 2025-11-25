@@ -1,14 +1,14 @@
-﻿using EnglishApp.ApplicationCore.Entities;
-using EnglishApp.ApplicationCore.Enums;
+﻿using EnglishApp.ApplicationCore.Enums;
 using EnglishApp.BusinessLogic.DTOs;
 using EnglishApp.BusinessLogic.Interfaces;
 using EnglishApp.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace EnglishApp.MVC.Controllers
 {
+    [Authorize]
     public class CommentsController : Controller
     {
         private readonly EnglishAppDbContext _context;
@@ -16,7 +16,7 @@ namespace EnglishApp.MVC.Controllers
         private readonly ICustomerService _customerService;
 
         public CommentsController(
-            EnglishAppDbContext context, 
+            EnglishAppDbContext context,
             ICommentsService commentsService,
             ICustomerService customerService
             )
@@ -26,7 +26,7 @@ namespace EnglishApp.MVC.Controllers
             _context = context;
         }
 
-        
+
 
         // GET: Comments/Details/5
         public async Task<IActionResult> Details(int? id)

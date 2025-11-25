@@ -65,13 +65,27 @@ public class CustomerService : ICustomerService
             var selectCustomer = await _context.Customers.SingleOrDefaultAsync(c => c.Id == customerDto.Id);
             if (selectCustomer != null)
             {
-                selectCustomer.Name = customerDto.Name.Trim();
-                selectCustomer.Email = customerDto.Email.Trim();
-                selectCustomer.DateOfBirth = customerDto.DateOfBirth;
-                selectCustomer.Gender = customerDto.Gender;
-                selectCustomer.Level = customerDto.Level;
-                selectCustomer.Avartar = customerDto.Avartar; // Cần phải có nếu không muốn cập nhật ảnh đại diện
-                selectCustomer.Description = customerDto.Description?.Trim();
+                if(customerDto.FileSubmit != null)
+                {
+                    selectCustomer.Name = customerDto.Name.Trim();
+                    selectCustomer.Email = customerDto.Email.Trim();
+                    selectCustomer.DateOfBirth = customerDto.DateOfBirth;
+                    selectCustomer.Gender = customerDto.Gender;
+                    selectCustomer.Level = customerDto.Level;
+                    selectCustomer.Avartar = customerDto.Avartar; // Cần phải có nếu không muốn cập nhật ảnh đại diện
+                    selectCustomer.Description = customerDto.Description?.Trim();
+
+                }
+                else
+                {
+                    selectCustomer.Name = customerDto.Name.Trim();
+                    selectCustomer.Email = customerDto.Email.Trim();
+                    selectCustomer.DateOfBirth = customerDto.DateOfBirth;
+                    selectCustomer.Gender = customerDto.Gender;
+                    selectCustomer.Level = customerDto.Level;
+                    selectCustomer.Description = customerDto.Description?.Trim();
+                }
+                
                 _context.Update(selectCustomer);
                 await _context.SaveChangesAsync();
                 statusCode.SetSuccess("Chỉnh sửa thông tin thành công");

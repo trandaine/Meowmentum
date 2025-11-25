@@ -25,6 +25,7 @@ namespace EnglishApp.Infrastructure.Services
             try
             {
                 var countCourses = await _context.Courses.CountAsync();
+
                 var newCourse = new Course
                 {
                     Name = courseModel.Name.Trim(),
@@ -56,21 +57,33 @@ namespace EnglishApp.Infrastructure.Services
                 var selectCourse = await _context.Courses.SingleOrDefaultAsync(c => c.Id == courseModel.Id);
                 if (selectCourse != null)
                 {
-                    selectCourse.Name = courseModel.Name.Trim();
-                    selectCourse.Description = courseModel.Description?.Trim();
-                    selectCourse.Level = courseModel.Level;
-                    selectCourse.Thumbnail = courseModel.Thumbnail;
-                    selectCourse.Price = courseModel.Price;
-                    selectCourse.DateUpdated = DateTime.Now;
+                    if (courseModel.ImageFile != null)
+                    {
+                        selectCourse.Name = courseModel.Name.Trim();
+                        selectCourse.Description = courseModel.Description?.Trim();
+                        selectCourse.Level = courseModel.Level;
+                        selectCourse.Thumbnail = courseModel.Thumbnail;
+                        selectCourse.Price = courseModel.Price;
+                        selectCourse.DateUpdated = DateTime.Now;
+                    }
+                    else
+                    {
+                        selectCourse.Name = courseModel.Name.Trim();
+                        selectCourse.Description = courseModel.Description?.Trim();
+                        selectCourse.Level = courseModel.Level;
+                        //selectCourse.Thumbnail = courseModel.Thumbnail;
+                        selectCourse.Price = courseModel.Price;
+                        selectCourse.DateUpdated = DateTime.Now;
+                    }
 
                     _context.Courses.Update(selectCourse);
                     await _context.SaveChangesAsync();
                     statusCode.SetSuccess("Update khóa học thành công");
                     return statusCode;
                 }
-                
+
             }
-            catch 
+            catch
             {
                 statusCode.SetInternalError("Tạo khóa học thất bại");
 
@@ -95,7 +108,7 @@ namespace EnglishApp.Infrastructure.Services
                 statusCode.SetSuccess("Xóa khóa học thành công");
                 return statusCode;
             }
-            catch 
+            catch
             {
                 statusCode.SetInternalError("Xóa khóa học thất bại");
             }

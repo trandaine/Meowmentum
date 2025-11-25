@@ -165,12 +165,11 @@ namespace EnglishApp.MVC.Controllers
                     if (courseThumbnailStatusCode.Code == StatusCodeEnum.Success)
                     {
                         courseModel.Thumbnail = courseThumbnailStatusCode.StringReturn;
-                        await _coursesService.Update(courseModel);
+                        //await _coursesService.Update(courseModel);
                     }
-                    else
-                    {
-                        await _coursesService.Update(courseModel);
-                    }
+                    
+                    await _coursesService.Update(courseModel);
+                    
 
                     //return RedirectToAction(nameof(Index));
                     return Json(new { success = true });

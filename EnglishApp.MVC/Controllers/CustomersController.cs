@@ -49,21 +49,9 @@ namespace EnglishApp.MVC.Controllers
         // GET: Customers/Create
         public IActionResult Create()
         {
-            var customerGender = Enum.GetValues(typeof(GenderEnum))
-                .Cast<GenderEnum>()
-                .Select(e => new SelectListItem
-                {
-                    Value = ((int)e).ToString(),
-                    Text = e.ToString()
-                }).ToList();
+            var customerGender = EnumHelper.ToSelectList<GenderEnum>();
             ViewBag.CustomerGenders = new SelectList(customerGender, "Value", "Text");
-            var customerLevel = Enum.GetValues(typeof(LevelEnum))
-                .Cast<LevelEnum>()
-                .Select(e => new SelectListItem
-                {
-                    Value = ((int)e).ToString(),
-                    Text = e.ToString()
-                }).ToList();
+            var customerLevel = EnumHelper.ToSelectList<LevelEnum>();
             ViewBag.CustomerLevels = new SelectList(customerLevel, "Value", "Text");
             return View();
         }
@@ -84,22 +72,12 @@ namespace EnglishApp.MVC.Controllers
                 }
 
             }
-            var customerGender = Enum.GetValues(typeof(GenderEnum))
-                .Cast<GenderEnum>()
-                .Select(e => new SelectListItem
-                {
-                    Value = ((int)e).ToString(),
-                    Text = e.ToString()
-                }).ToList();
+
+            var customerGender = EnumHelper.ToSelectList<GenderEnum>();
             ViewBag.CustomerGenders = new SelectList(customerGender, "Value", "Text");
-            var customerLevel = Enum.GetValues(typeof(LevelEnum))
-                .Cast<LevelEnum>()
-                .Select(e => new SelectListItem
-                {
-                    Value = ((int)e).ToString(),
-                    Text = e.ToString()
-                }).ToList();
+            var customerLevel = EnumHelper.ToSelectList<LevelEnum>();
             ViewBag.CustomerLevels = new SelectList(customerLevel, "Value", "Text");
+
             return View(nameof(Create), customerModel);
 
 
@@ -110,21 +88,23 @@ namespace EnglishApp.MVC.Controllers
         // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            var customerGender = Enum.GetValues(typeof(GenderEnum))
-               .Cast<GenderEnum>()
-               .Select(e => new SelectListItem
-               {
-                   Value = ((int)e).ToString(),
-                   Text = e.ToString()
-               }).ToList();
+            //var customerGender = Enum.GetValues(typeof(GenderEnum))
+            //   .Cast<GenderEnum>()
+            //   .Select(e => new SelectListItem
+            //   {
+            //       Value = ((int)e).ToString(),
+            //       Text = e.ToString()
+            //   }).ToList();
+            //var customerLevel = Enum.GetValues(typeof(LevelEnum))
+            //    .Cast<LevelEnum>()
+            //    .Select(e => new SelectListItem
+            //    {
+            //        Value = ((int)e).ToString(),
+            //        Text = e.ToString()
+            //    }).ToList();
+            var customerGender = EnumHelper.ToSelectList<GenderEnum>();
             ViewBag.CustomerGenders = new SelectList(customerGender, "Value", "Text");
-            var customerLevel = Enum.GetValues(typeof(LevelEnum))
-                .Cast<LevelEnum>()
-                .Select(e => new SelectListItem
-                {
-                    Value = ((int)e).ToString(),
-                    Text = e.ToString()
-                }).ToList();
+            var customerLevel = EnumHelper.ToSelectList<LevelEnum>();
             ViewBag.CustomerLevels = new SelectList(customerLevel, "Value", "Text");
 
             var customer = await _customerService.GetCustomerDtoById(id);
@@ -149,14 +129,13 @@ namespace EnglishApp.MVC.Controllers
                     if (customerAvatarStatusCode.Code == StatusCodeEnum.Success)
                     {
                         customerDto.Avartar = customerAvatarStatusCode.StringReturn;
-                        await _customerService.Update(customerDto);
                     }
-                    else
-                    {
-                        // Lưu ảnh đại diện không thành công thì vẫn cập nhật các thông tin khác
-                        await _customerService.Update(customerDto);
-                    }
-                    
+                    await _customerService.Update(customerDto);
+                    //else
+                    //{
+                    //    // Lưu ảnh đại diện không thành công thì vẫn cập nhật các thông tin khác
+                    //    await _customerService.Update(customerDto);
+                    //}
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -173,22 +152,11 @@ namespace EnglishApp.MVC.Controllers
                 return Json(new {success = true });
             }
 
-            var customerGender = Enum.GetValues(typeof(GenderEnum))
-               .Cast<GenderEnum>()
-               .Select(e => new SelectListItem
-               {
-                   Value = ((int)e).ToString(),
-                   Text = e.ToString()
-               }).ToList();
+            var customerGender = EnumHelper.ToSelectList<GenderEnum>();
             ViewBag.CustomerGenders = new SelectList(customerGender, "Value", "Text");
-            var customerLevel = Enum.GetValues(typeof(LevelEnum))
-                .Cast<LevelEnum>()
-                .Select(e => new SelectListItem
-                {
-                    Value = ((int)e).ToString(),
-                    Text = e.ToString()
-                }).ToList();
+            var customerLevel = EnumHelper.ToSelectList<LevelEnum>();
             ViewBag.CustomerLevels = new SelectList(customerLevel, "Value", "Text");
+
             return PartialView(nameof(Edit),customerDto);
         }
 
