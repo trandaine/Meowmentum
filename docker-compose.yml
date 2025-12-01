@@ -1,0 +1,15 @@
+services:
+  englishapp.mvc:
+    image: englishapp-mvc
+    build:
+      context: .
+      dockerfile: EnglishApp.MVC/Dockerfile
+      args:
+        BUILD_CONFIGURATION: Development
+    ports:
+      - "5000:8080"
+    volumes:
+      - ./SharedMedia:/SharedMedia
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080

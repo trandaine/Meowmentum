@@ -209,7 +209,7 @@ app.UseStaticFiles(new StaticFileOptions
 
 
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
