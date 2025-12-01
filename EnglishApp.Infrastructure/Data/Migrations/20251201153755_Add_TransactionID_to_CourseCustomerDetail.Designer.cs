@@ -4,6 +4,7 @@ using EnglishApp.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EnglishApp.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(EnglishAppDbContext))]
-    partial class EnglishAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251201153755_Add_TransactionID_to_CourseCustomerDetail")]
+    partial class Add_TransactionID_to_CourseCustomerDetail
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

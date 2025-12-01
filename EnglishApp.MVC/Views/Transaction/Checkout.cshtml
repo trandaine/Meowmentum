@@ -1,0 +1,22 @@
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h1 class="text-success mb-4">Purchase Successful!</h1>
+                    <p class="lead">Thank you for your purchase.</p>
+                    <p>Your courses have been added to your account.</p>
+                    <div class="mt-4">
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Return to Home</a>
+                        @* <a asp-controller="Courses" asp-action="Index" class="btn btn-secondary">Browse More Courses</a> *@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

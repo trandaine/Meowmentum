@@ -12,7 +12,8 @@ namespace EnglishApp.Infrastructure.Configurations
                 .HasKey(e => new { e.CustomerId, e.CourseId }); // Superkey
             modelBuilder.Property(e => e.Amount)
                 .HasPrecision(18,2);
-
+            modelBuilder.Property(x => x.TransactionId)
+               .HasMaxLength(450);
             modelBuilder
                 .HasOne(e => e.Customer)
                 .WithMany(s => s.CourseCustomerDetails)

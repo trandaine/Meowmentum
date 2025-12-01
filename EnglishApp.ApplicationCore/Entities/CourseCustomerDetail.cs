@@ -9,6 +9,7 @@
         //public int Id { get; set; }
         public int CustomerId { get; set; }
         public decimal Amount { get; set; }
+        public string TransactionId { get; set; }
         public virtual Customer Customer { get; set; }
         public int CourseId { get; set; }
         public virtual Course Course { get; set; }
