@@ -7,9 +7,9 @@ This document serves as a comprehensive guide to the **EnglishApp** solution, de
 ## 🚀 1. Technology Stack
 
 ### Backend & Core
--   **Framework**: .NET 8.0
+-   **Framework**: .NET 10.0
 -   **Web Frameworks**: ASP.NET Core MVC, ASP.NET Core Web API
--   **ORM**: Entity Framework Core 9.0.9
+-   **ORM**: Entity Framework Core 10.0.0
 -   **Database**: SQL Server
 -   **Authentication**: ASP.NET Core Identity
 -   **Object Mapping**: (Implicit/Manual or AutoMapper if used - *Note: DTOs are present*)
