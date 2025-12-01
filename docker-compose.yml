@@ -1,4 +1,21 @@
 services:
+  englishapp.api:
+    image: englishapp-api
+    build:
+      context: .
+      dockerfile: EnglishApp.API/Dockerfile
+      args:
+        BUILD_CONFIGURATION: Development
+    ports:
+      # Maps localhost:5001 -> container:8080
+      - "5001:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+    # Optional: If the API needs to see the shared media as well
+    volumes:
+      - ./SharedMedia:/SharedMedia
+
   englishapp.mvc:
     image: englishapp-mvc
     build:
