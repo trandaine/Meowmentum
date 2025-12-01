@@ -114,13 +114,14 @@ namespace EnglishApp.MVC.Controllers
 
             }
             // Binding the enums to the dropdown list if ModelState is invalid (User made a mistake)
-            var courseLevels = Enum.GetValues(typeof(LevelEnum))
-                .Cast<LevelEnum>()
-                .Select(e => new SelectListItem
-                {
-                    Value = ((int)e).ToString(),
-                    Text = e.ToString()
-                }).ToList();
+            //var courseLevels = Enum.GetValues(typeof(LevelEnum))
+            //    .Cast<LevelEnum>()
+            //    .Select(e => new SelectListItem
+            //    {
+            //        Value = ((int)e).ToString(),
+            //        Text = e.ToString()
+            //    }).ToList();
+            var courseLevels = EnumHelper.ToSelectList<LevelEnum>();
             ViewBag.CourseLevels = new SelectList(courseLevels, "Value", "Text");
             return PartialView(nameof(Create), courseModel);
             //return PartialView("Create", courseModel);
@@ -138,13 +139,14 @@ namespace EnglishApp.MVC.Controllers
             var courseDto = await _coursesService.GetCourseDtoById(id);
 
             // Binding the enums to the dropdown list
-            var courseLevels = Enum.GetValues(typeof(LevelEnum))
-                    .Cast<LevelEnum>()
-                    .Select(e => new SelectListItem
-                    {
-                        Value = ((int)e).ToString(),
-                        Text = e.ToString()
-                    }).ToList();
+            //var courseLevels = Enum.GetValues(typeof(LevelEnum))
+            //        .Cast<LevelEnum>()
+            //        .Select(e => new SelectListItem
+            //        {
+            //            Value = ((int)e).ToString(),
+            //            Text = e.ToString()
+            //        }).ToList();
+            var courseLevels = EnumHelper.ToSelectList<LevelEnum>();
             ViewBag.CourseLevels = new SelectList(courseLevels, "Value", "Text", (int)courseDto.Level);
             return PartialView(nameof(Create), courseDto);
         }
@@ -181,13 +183,14 @@ namespace EnglishApp.MVC.Controllers
                 }
             }
             // Binding the enums to the dropdown list if ModelState is invalid (User made a mistake)
-            var courseLevels = Enum.GetValues(typeof(LevelEnum))
-                .Cast<LevelEnum>()
-                .Select(e => new SelectListItem
-                {
-                    Value = ((int)e).ToString(),
-                    Text = e.ToString()
-                }).ToList();
+            //var courseLevels = Enum.GetValues(typeof(LevelEnum))
+            //    .Cast<LevelEnum>()
+            //    .Select(e => new SelectListItem
+            //    {
+            //        Value = ((int)e).ToString(),
+            //        Text = e.ToString()
+            //    }).ToList();
+            var courseLevels = EnumHelper.ToSelectList<LevelEnum>();
             ViewBag.CourseLevels = new SelectList(courseLevels, "Value", "Text");
             return PartialView(nameof(Create), courseModel);
         }

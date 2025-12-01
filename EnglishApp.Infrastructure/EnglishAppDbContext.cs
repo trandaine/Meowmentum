@@ -9,12 +9,19 @@ namespace EnglishApp.Infrastructure
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //var connectionString = "Server= " + Constants.SQL_SERVER + " Database=MusicDbContext; User Id=sa; password=Dai@2018; TrustServerCertificate=True; Trusted_Connection=False; MultipleActiveResultSets=true;";
-            var connectionString = ConnectionConstants.SQL_SERVER_CONNECTION_STRING;
-            optionsBuilder.UseSqlServer(connectionString
-                //sqlServerOptions => sqlServerOptions.EnableRetryOnFailure()
-                );
-
+            if (!optionsBuilder.IsConfigured)
+            {
+                //var connectionString = "Server= " + Constants.SQL_SERVER + " Database=MusicDbContext; User Id=sa; password=Dai@2018; TrustServerCertificate=True; Trusted_Connection=False; MultipleActiveResultSets=true;";
+                var connectionString = ConnectionConstants.SQL_SERVER_CONNECTION_STRING;
+                optionsBuilder.UseSqlServer(connectionString
+                    //sqlServerOptions => sqlServerOptions.EnableRetryOnFailure()
+                    );
+            }
+            // //var connectionString = "Server= " + Constants.SQL_SERVER + " Database=MusicDbContext; User Id=sa; password=Dai@2018; TrustServerCertificate=True; Trusted_Connection=False; MultipleActiveResultSets=true;";
+            //     var connectionString = ConnectionConstants.SQL_SERVER_CONNECTION_STRING;
+            //     optionsBuilder.UseSqlServer(connectionString
+            //         //sqlServerOptions => sqlServerOptions.EnableRetryOnFailure()
+            //         );
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {

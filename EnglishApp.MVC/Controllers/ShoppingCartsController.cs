@@ -22,7 +22,8 @@ namespace EnglishApp.MVC.Controllers
         private readonly ICustomerService _customerService;
         private readonly UserManager<EnglishAppIdentityUser> _userManager;
 
-        public ShoppingCartsController(EnglishAppDbContext context,
+        public ShoppingCartsController(
+            EnglishAppDbContext context,
             IHttpContextAccessor httpContextAccessor,
             ICustomerService customerService,
             UserManager<EnglishAppIdentityUser> userManager,

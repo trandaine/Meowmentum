@@ -2,8 +2,6 @@
 using EnglishApp.BusinessLogic.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-
-
 namespace EnglishApp.API.Controllers
 {
     [Route("api/[controller]")]
